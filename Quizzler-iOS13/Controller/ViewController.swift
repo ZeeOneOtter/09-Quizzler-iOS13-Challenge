@@ -13,21 +13,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var choice1Button: UIButton!
+    @IBOutlet weak var choice2Button: UIButton!
+    @IBOutlet weak var choice3Button: UIButton!
     
     var quizBrain = QuizBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        progressBar.progress = 0.0
         quizBrain.quiz.shuffle()
-        updateUI()
     }
 
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        print(quizBrain.questionNumber)
         //need to change the color back in case the user continues past the first round
 //        progressBar.progressTintColor = UIColor(red: 255, green: 117, blue: 168, alpha: 1.0)
         
@@ -58,11 +56,16 @@ class ViewController: UIViewController {
     
     @objc func updateUI() {
         
-        trueButton.backgroundColor = UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
+        choice2Button.backgroundColor = UIColor.clear
+        choice3Button.backgroundColor = UIColor.clear
         progressBar.progress = quizBrain.getProgress()
         scoreLabel.text = "Score: \(quizBrain.getScore())."
         questionLabel.text = quizBrain.getQuestionText()
+        
+        let answerChoices = quizBrain.getAnswersText()
+        choice1Button.setTitle(answerChoices[0], for: .normal)
+        choice2Button.setTitle(answerChoices[1], for: .normal)
+        choice3Button.setTitle(answerChoices[2], for: .normal)
         
     }
     
